@@ -11,7 +11,8 @@ import de.robv.android.xposed.XposedBridge;
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 
 /**
- * Override how camera frames are interpreted.
+ * Override how camera frames are interpreted via their reported orientation. Changes camera
+ * behaviour, but may not be consistent between camera1 and camera2.
  */
 public enum OrientationBehaviour implements Behaviour {
     DEFAULT {
@@ -26,6 +27,8 @@ public enum OrientationBehaviour implements Behaviour {
             return original + 180 % 360;
         }
     };
+
+    public static final String KEY = "orientation_behaviour";
 
     abstract int transformOrientation(int original);
 

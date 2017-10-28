@@ -31,6 +31,8 @@ public enum OpenBehaviour implements Behaviour {
 
     private XC_MethodHook mHookAction;
 
+    public static final String KEY = "open_behaviour";
+
     OpenBehaviour(XC_MethodHook action) {
         mHookAction = action;
     }

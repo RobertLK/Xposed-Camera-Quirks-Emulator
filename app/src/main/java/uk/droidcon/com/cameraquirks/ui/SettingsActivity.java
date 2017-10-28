@@ -18,6 +18,9 @@ import android.view.MenuItem;
 import java.util.List;
 
 import uk.droidcon.com.cameraquirks.R;
+import uk.droidcon.com.cameraquirks.xposed.CloseBehaviour;
+import uk.droidcon.com.cameraquirks.xposed.OpenBehaviour;
+import uk.droidcon.com.cameraquirks.xposed.OrientationBehaviour;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -131,9 +134,9 @@ public class SettingsActivity extends AppCompatActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("open_behaviour"));
-            bindPreferenceSummaryToValue(findPreference("close_behaviour"));
-            bindPreferenceSummaryToValue(findPreference("orientation_behaviour"));
+            bindPreferenceSummaryToValue(findPreference(OpenBehaviour.KEY));
+            bindPreferenceSummaryToValue(findPreference(CloseBehaviour.KEY));
+            bindPreferenceSummaryToValue(findPreference(OrientationBehaviour.KEY));
         }
 
         @Override

@@ -25,6 +25,8 @@ public enum CloseBehaviour implements Behaviour {
 
     private XC_MethodHook mHookAction;
 
+    public static final String KEY = "close_behaviour";
+
     CloseBehaviour(XC_MethodHook action) {
         mHookAction = action;
     }
