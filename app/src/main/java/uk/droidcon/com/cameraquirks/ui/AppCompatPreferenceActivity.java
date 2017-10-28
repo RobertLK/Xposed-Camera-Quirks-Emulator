@@ -1,4 +1,4 @@
-package uk.droidcon.com.cameraquirks;
+package uk.droidcon.com.cameraquirks.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
