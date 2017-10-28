@@ -2,7 +2,6 @@
 
 
     <ListPreference
-        android:defaultValue="DEFAULT"
         android:entries="@array/pref_open_list_titles"
         android:entryValues="@array/pref_open_list_values"
         android:key="open_behaviour"
@@ -11,7 +10,6 @@
         android:title="@string/pref_title_open_behaviour" />
 
     <ListPreference
-        android:defaultValue="DEFAULT"
         android:entries="@array/pref_close_list_titles"
         android:entryValues="@array/pref_close_list_values"
         android:key="close_behaviour"
@@ -20,7 +18,6 @@
         android:title="@string/pref_title_close_behaviour" />
 
     <ListPreference
-        android:defaultValue="DEFAULT"
         android:entries="@array/pref_orientation_list_titles"
         android:entryValues="@array/pref_orientation_list_values"
         android:key="orientation_behaviour"

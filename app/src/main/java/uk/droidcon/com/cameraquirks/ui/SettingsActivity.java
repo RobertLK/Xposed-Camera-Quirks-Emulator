@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import java.util.List;
 
 import uk.droidcon.com.cameraquirks.R;
+import uk.droidcon.com.cameraquirks.xposed.Behaviour;
 import uk.droidcon.com.cameraquirks.xposed.CloseBehaviour;
 import uk.droidcon.com.cameraquirks.xposed.OpenBehaviour;
 import uk.droidcon.com.cameraquirks.xposed.OrientationBehaviour;
@@ -92,7 +93,7 @@ public class SettingsActivity extends AppCompatActivity {
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
+                        .getString(preference.getKey(), Behaviour.DEFAULT_VALUE_NAME));
     }
 
     @Override

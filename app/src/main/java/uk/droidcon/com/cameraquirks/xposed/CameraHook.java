@@ -35,8 +35,11 @@ public class CameraHook implements IXposedHookLoadPackage {
     }
 
     private <Type extends Enum & Behaviour> Behaviour loadBehaviour(String prefsKey, Class<? extends Type> subClass) {
-        String name = mPrefs.getString(prefsKey, "DEFAULT");
-        return Enum.valueOf(subClass, name);
+        String name = mPrefs.getString(prefsKey, Behaviour.DEFAULT_VALUE_NAME);
+        /*Intellij says this cast is redundant, but it doesn't compile without it. I'm probably
+         * doing something wrong with generics
+         */
+        return (Behaviour) Enum.valueOf(subClass, name);
     }
 
     private void initPrefs() {
