@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
+import uk.droidcon.com.cameraquirks.Constants;
 
 public class CameraHook implements IXposedHookLoadPackage {
     private XSharedPreferences mPrefs;
@@ -45,8 +47,8 @@ public class CameraHook implements IXposedHookLoadPackage {
     }
 
     private void initPrefs() {
-        if (mPrefs != null) {
-            mPrefs = new XSharedPreferences(getClass().getPackage().getName());
+        if (mPrefs == null) {
+            mPrefs = new XSharedPreferences(Constants.ROOT_PACKAGE, Constants.SHARED_PREFS_NAME);
             mPrefs.makeWorldReadable();
         }
     }

@@ -10,13 +10,11 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import java.util.List;
-
+import uk.droidcon.com.cameraquirks.Constants;
 import uk.droidcon.com.cameraquirks.R;
 import uk.droidcon.com.cameraquirks.xposed.Behaviour;
 import uk.droidcon.com.cameraquirks.xposed.CloseBehaviour;
@@ -91,8 +89,7 @@ public class SettingsActivity extends AppCompatActivity {
         // Trigger the listener immediately with the preference's
         // current value.
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
+                preference.getContext().getSharedPreferences(Constants.SHARED_PREFS_NAME, MODE_WORLD_READABLE)
                         .getString(preference.getKey(), Behaviour.DEFAULT_VALUE_NAME));
     }
 
@@ -127,6 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
             // this is important because although the handler classes that read these settings
             // are in the same package, they are executed in the context of the hooked package
             getPreferenceManager().setSharedPreferencesMode(Context.MODE_WORLD_READABLE);
+            getPreferenceManager().setSharedPreferencesName(Constants.SHARED_PREFS_NAME);
 
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
