@@ -1,6 +1,7 @@
 package uk.droidcon.com.cameraquirks.xposed;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -32,13 +33,13 @@ public enum CloseBehaviour implements Behaviour {
     }
 
     @Override
-    public void addCamera1Hook(ClassLoader classLoader) {
+    public void addCamera1Hook(ClassLoader classLoader, Bundle state) {
         findAndHookMethod("android.hardware.Camera", classLoader, "release", mHookAction);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void addCamera2Hook(ClassLoader classLoader) {
+    public void addCamera2Hook(ClassLoader classLoader, Bundle state) {
         findAndHookMethod("android.hardware.camera2.CameraDevice", classLoader, "close", mHookAction);
     }
 }

@@ -1,6 +1,7 @@
 package uk.droidcon.com.cameraquirks.xposed;
 
 import android.os.Build;
+import android.os.Bundle;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XSharedPreferences;
@@ -20,17 +21,18 @@ public class CameraHook implements IXposedHookLoadPackage {
 
         initPrefs();
 
-        applyBehaviour(OpenBehaviour.KEY, OpenBehaviour.class, lpparam);
-        applyBehaviour(CloseBehaviour.KEY, CloseBehaviour.class, lpparam);
-        applyBehaviour(OrientationBehaviour.KEY, OrientationBehaviour.class, lpparam);
+        Bundle processState = new Bundle();
+        applyBehaviour(OpenBehaviour.KEY, OpenBehaviour.class, lpparam, processState);
+        applyBehaviour(CloseBehaviour.KEY, CloseBehaviour.class, lpparam, processState);
+        applyBehaviour(OrientationBehaviour.KEY, OrientationBehaviour.class, lpparam, processState);
     }
 
-    private <Type extends Enum & Behaviour> void applyBehaviour(String prefsKey, Class<? extends Type> subClass, XC_LoadPackage.LoadPackageParam lpparam) {
+    private <Type extends Enum & Behaviour> void applyBehaviour(String prefsKey, Class<? extends Type> subClass, XC_LoadPackage.LoadPackageParam lpparam, Bundle state) {
         Behaviour behaviour = loadBehaviour(prefsKey, subClass);
-        behaviour.addCamera1Hook(lpparam.classLoader);
+        behaviour.addCamera1Hook(lpparam.classLoader, state);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            behaviour.addCamera2Hook(lpparam.classLoader);
+            behaviour.addCamera2Hook(lpparam.classLoader, state);
         }
     }
 

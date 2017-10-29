@@ -1,6 +1,7 @@
 package uk.droidcon.com.cameraquirks.xposed;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -38,14 +39,14 @@ public enum OpenBehaviour implements Behaviour {
     }
 
     @Override
-    public void addCamera1Hook(ClassLoader classLoader) {
+    public void addCamera1Hook(ClassLoader classLoader, Bundle state) {
         findAndHookMethod("android.hardware.Camera", classLoader, "open", mHookAction);
         findAndHookMethod("android.hardware.Camera", classLoader, "open", int.class, mHookAction);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void addCamera2Hook(ClassLoader classLoader) {
+    public void addCamera2Hook(ClassLoader classLoader, Bundle state) {
         findAndHookMethod("android.hardware.camera2.CameraManager", classLoader, "openCamera", String.class, android.hardware.camera2.CameraDevice.StateCallback.class, android.os.Handler.class, mHookAction);
     }
 }
