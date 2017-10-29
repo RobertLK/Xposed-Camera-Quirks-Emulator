@@ -40,6 +40,7 @@ public enum CloseBehaviour implements Behaviour {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void addCamera2Hook(ClassLoader classLoader, Bundle state) {
-        findAndHookMethod("android.hardware.camera2.CameraDevice", classLoader, "close", mHookAction);
+        //FIXME: Can't hook abstract methods
+        //findAndHookMethod("android.hardware.camera2.CameraDevice", classLoader, "close", mHookAction);
     }
 }
