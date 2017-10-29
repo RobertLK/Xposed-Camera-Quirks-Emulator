@@ -1,5 +1,10 @@
 package uk.droidcon.com.cameraquirks.xposed;
 
+import android.Manifest;
+import android.app.AndroidAppHelper;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,6 +23,11 @@ public class CameraHook implements IXposedHookLoadPackage {
         if (!lpparam.isFirstApplication) {
             return;
         }
+
+        //if (!usesCameraPermission(AndroidAppHelper.currentApplication(), lpparam.packageName)) {
+            //XposedBridge.log("Ignoring non-camera package: " + lpparam.packageName);
+            //return;
+        //}
 
         initPrefs();
 
@@ -42,6 +52,22 @@ public class CameraHook implements IXposedHookLoadPackage {
          * doing something wrong with generics
          */
         return (Behaviour) Enum.valueOf(subClass, name);
+    }
+
+    private boolean usesCameraPermission(Context appContext, String loadedPackage) {
+        final PackageManager packageManager = appContext.getPackageManager();
+        try {
+            PackageInfo info = packageManager.getPackageInfo(loadedPackage, PackageManager.GET_PERMISSIONS);
+            for (String permission : info.requestedPermissions) {
+                if (Manifest.permission.CAMERA.equals(permission)) {
+                    return true;
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            XposedBridge.log(e);
+        }
+
+        return false;
     }
 
     private void initPrefs() {
